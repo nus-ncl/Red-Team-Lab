@@ -20,6 +20,13 @@ If (!(Test-Path $ProfilePath)) {
   }
 }
 
+# Ping DetectionLab server for usage statistics
+Try {
+  curl -userAgent "DetectionLab-$box" "https://ping.detectionlab.network/$box" -UseBasicParsing | out-null
+} Catch {
+  Write-Host "Unable to connect to ping.detectionlab.network"
+}
+
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Disabling IPv6 on all network adatpers..."
 Get-NetAdapterBinding -ComponentID ms_tcpip6 | ForEach-Object {Disable-NetAdapterBinding -Name $_.Name -ComponentID ms_tcpip6}
 Get-NetAdapterBinding -ComponentID ms_tcpip6 
@@ -48,7 +55,7 @@ if ($env:COMPUTERNAME -imatch 'vagrant') {
   }
 
   if ($env:COMPUTERNAME -imatch 'dc') {
-    . c:\vagrant\scripts\create-domain.ps1 192.168.38.104
+    . c:\vagrant\scripts\create-domain.ps1 192.168.38.102
   } else {
     . c:\vagrant\scripts\join-domain.ps1
   }

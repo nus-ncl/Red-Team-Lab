@@ -6,7 +6,7 @@ $hostsFile = "c:\Windows\System32\drivers\etc\hosts"
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Joining the domain..."
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) First, set DNS to DC to join the domain..."
-$newDNSServers = "192.168.38.104"
+$newDNSServers = "192.168.38.102"
 $adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPAddress -match "192.168.38."}
 # Don't do this in Azure. If the network adatper description contains "Hyper-V", this won't apply changes.
 # Specify the DC as a WINS server to help with connectivity as well
@@ -19,7 +19,7 @@ $pass = ConvertTo-SecureString "vagrant" -AsPlainText -Force
 $DomainCred = New-Object System.Management.Automation.PSCredential $user, $pass
 
 # Place the computer in the correct OU based on hostname
-If ($hostname -eq "endpoint") {
+If ($hostname -eq "wef") {
   Add-Computer -DomainName "windomain.local" -credential $DomainCred -OUPath "ou=Servers,dc=windomain,dc=local" -PassThru
   # Attempt to fix Issue #517
   Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'WaitToKillServiceTimeout' -Value '500' -Type String -Force -ea SilentlyContinue
@@ -39,7 +39,7 @@ Stop-Service wuauserv
 Set-Service TrustedInstaller -StartupType Disabled
 Stop-Service TrustedInstaller
 
-# Uninstall Windows Defender from Endpoint
+# Uninstall Windows Defender from WEF
 # This command isn't supported on WIN10
 If ($hostname -ne "win10" -And (Get-Service -Name WinDefend -ErrorAction SilentlyContinue).status -eq 'Running') {
   # Uninstalling Windows Defender (https://github.com/StefanScherer/packer-windows/issues/201)
