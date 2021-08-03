@@ -113,6 +113,18 @@ The following software  is required for setting up the Red Team Lab environment
   ```
   ansible-playbook domain_controllers.yml -i environments/hosts --user=vagrant -vv
   ```
+
+* In the DomainController workstation in the following path `C:\vagrant\` run the powershell script using the commands below for adding the misconfigurations
+  ```
+  Import-Module .\vulnad.ps1
+  Invoke-VulnAD -UsersLimit 50 -DomainName "hacklab.local"
+  ```
+
+* To add the Server workstation to the doamin right click on ThisPC icon in Windows Start Menu and click change domain to add to the domain "hacklab.local"
+
+  If the domain is not identified try to edit the Network configurations to change DNS settings with IP address "192.168.200.10" which is the IP address of the DomainController
+
+
   
 
 ### Pending tasks for automation
