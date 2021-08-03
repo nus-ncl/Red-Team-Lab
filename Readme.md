@@ -82,6 +82,13 @@ The following software  is required for setting up the Red Team Lab environment
     python3 -m pip install ansible
     python3 -m pip install pywinrm
     ``` 
+* Add the ansible package repository to experiment node and install ansible using the following commands
+   ```
+   sudo apt-add-repository ppa:ansible/ansible
+   sudo apt-get update
+   sudo apt-get install ansible
+   ```
+   
 ### Lab Setup
 * Clone the repository into the experiment node assigned to you for your experiment 
   ```
