@@ -91,7 +91,28 @@ The following software  is required for setting up the Red Team Lab environment
   ```
   python setup.py
   ```
-* 
+* Bring up the infra using the below command
+  ```
+  vagrant up
+  ```
+  > the above command may fail after each VM because of VirtualBoxGuest Additions mismatch. Install vbguest plugin for vagrant using the below command
+  ```
+  vagrant plugin install vbguest
+  ```
+  if the `vagrant up` command fails to resolve the issue use the command below 
+  ```
+  vagrant vbguest --do install
+  ```
+
+  If vagrant up command fails for the first time after vbguest installation use the below commands to restart the VM's. This time there should be no errors
+  ```
+  vagrant halt
+  vagrant up
+  ```
+* Next navigate to ansible folder and configure the domain controller using the below command
+  ```
+  ansible-playbook domain_controllers.yml -i environments/hosts --user=vagrant -vv
+  ```
   
 
 ### Pending tasks for automation
