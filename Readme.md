@@ -14,7 +14,7 @@ The following software  is required for setting up the Red Team Lab environment
 * The following softwares, can be installed using the setup.py file
     * Vagrant
     * Virtual-Box
-    * Ansible
+    * Ansible (for Automation - Work in progress)
     * VNCServer
 
 > Any issues in the pre-requisite software, please contact support@ncl.sg
@@ -34,7 +34,6 @@ The following software  is required for setting up the Red Team Lab environment
   # Go!
   $ns run
   ```
-
 
 ## Procedure to setup Red-Team lab (for NCL staff)
 * Login to the experiment node in NCL using your credentials via terminal
@@ -68,11 +67,25 @@ The following software  is required for setting up the Red Team Lab environment
   ```
   cd Red-Team
   ```
-
+### Installing ansible 
+* Check if Python 3 is installed in the Experiment node using the below command
+    ```
+    python3 --version
+    ```
+* Install pip for python3 using the below commands 
+    ```
+    wget https://bootstrap.pypa.io/pip/3.5/get-pip.py
+    python3 get-pip.py
+    ```
+* Install ansible and pywinrm packages using pip
+    ```
+    python3 -m pip install ansible
+    python3 -m pip install pywinrm
+    ``` 
 ### Lab Setup
 * Clone the repository into the experiment node assigned to you for your experiment 
   ```
-  git clone https://github.com/nus-ncl/pentest-virtuallab.git
+  git clone https://github.com/nus-ncl/Red-Team-Lab.git
   ```
 * Run the following command, to install the pre-requisite software 
   ```
@@ -80,3 +93,8 @@ The following software  is required for setting up the Red Team Lab environment
   ```
 * 
   
+
+### Pending tasks for automation
+- [x] Configure and add Domain controller using ansible
+- [ ] Configure the servers and services using ansible
+- [ ] Configure tools in workstation using ansible
