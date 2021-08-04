@@ -35,14 +35,14 @@
     name: xDnsServer
     state: present
 
-- name: Configure DNS Forwarders
-  win_dsc:
-    resource_name: xDnsServerSetting
-    Name: DNSServerProperties
-    NoRecursion: false
-    Forwarders:
-      - "8.8.8.8"
-      - "8.8.4.4"
+#- name: Configure DNS Forwarders
+#  win_dsc:
+#    resource_name: xDnsServerSetting
+#    Name: DNSServerProperties
+#    NoRecursion: false
+#    Forwarders:
+#      - "8.8.8.8"
+#      - "8.8.4.4"
 
 - name: Ensure that Domain Admin test_admin@hacklab.local is present in OU cn=Users,dc=HACKLAB,dc=local
   win_domain_user:
